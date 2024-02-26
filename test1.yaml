@@ -37,16 +37,4 @@ Resources:
     Properties:
       ImageId: !FindInMap [RegionMap, !Ref "AWS::Region", AMI]
       InstanceType: !If [CreateProdResources, c1.xlarge, !If [CreateDevResources, m1.large, m1.small]]    
-  MountPoint:
-    Type: "AWS::EC2::VolumeAttachment"
-    Condition: CreateProdResources
-    Properties:
-      InstanceId: !Ref EC2Instance
-      VolumeId: !Ref NewVolume
-      Device: /dev/sdh
-  NewVolume:
-    Type: "AWS::EC2::Volume"
-    Condition: CreateProdResources
-    Properties:
-      Size: 100
-      AvailabilityZone: !GetAtt EC2Instance.AvailabilityZone
+  
